@@ -14,7 +14,7 @@ public class Game {
         placeMove('a',1,'X', b);
         placeMove('a',2,'X', b);
         placeMove('a',3,'X', b);
-        placeMove('a',4,'O', b);
+        placeMove('a',4,'-', b);
         placeMove('a',5,'X', b);
         placeMove('a',6,'X', b);
         placeMove('a',7,'O', b);
@@ -99,7 +99,8 @@ public class Game {
                     }
                 }
                 else {
-                    table.put(element, 0);
+                    table.put('X', 0);
+                    table.put('O', 0);
                 }
             }
         }
@@ -107,7 +108,7 @@ public class Game {
     }
 
     private static boolean checkVerticalStreaks(char[][] board, char badge) {
-        
+
         for (int row = 0; row < board.length; row++) {
             int currentStreak = 0;
             for (int col = 0; col < board[row].length; col++) {
