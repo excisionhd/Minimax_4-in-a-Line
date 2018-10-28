@@ -3,6 +3,8 @@ import java.util.Hashtable;
 public class Game {
 
     char[][] board;
+    final char PLAYER1 = 'X';
+    final char PLAYER2 = 'O';
 
     public Game(char[][] board){
         this.board = board;
@@ -14,13 +16,18 @@ public class Game {
         placeMove('a',1,'X', b);
         placeMove('a',2,'X', b);
         placeMove('a',3,'X', b);
-        placeMove('a',4,'-', b);
+        placeMove('a',4,'X', b);
         placeMove('a',5,'X', b);
         placeMove('a',6,'X', b);
         placeMove('a',7,'O', b);
         placeMove('a',8,'X', b);
+        placeMove('b',8,'X', b);
+        placeMove('c',8,'X', b);
+        placeMove('d',8,'-', b);
+        placeMove('e',8,'O', b);
         printBoard(b);
-        System.out.println(checkHorizontalStreaks(b));
+        System.out.println(checkHorizontal(b));
+        System.out.println(checkVertical(b));
     }
     
     public static char[][] generateEmptyBoard(){
@@ -71,7 +78,7 @@ public class Game {
         }
     }
 
-    private static boolean checkHorizontalStreaks(char[][] board) {
+    private static boolean checkHorizontal(char[][] board) {
 
         Hashtable<Character, Integer> table = new Hashtable<>();
         table.put('X', 0);
@@ -107,21 +114,38 @@ public class Game {
         return false;
     }
 
-    private static boolean checkVerticalStreaks(char[][] board, char badge) {
+    private static boolean checkVertical(char[][] board) {
+        Hashtable<Character, Integer> table = new Hashtable<>();
+        table.put('X', 0);
+        table.put('O', 0);
 
-        for (int row = 0; row < board.length; row++) {
-            int currentStreak = 0;
-            for (int col = 0; col < board[row].length; col++) {
-                if (board[row][col] == badge) {
-                    currentStreak++;
-                    if (currentStreak == 4) {
+        for (int j = 0; j<board[0].length; j++) {
+            for (int i = 0; i < board.length; i++) {
+                char element = board[i][j];
+
+                if (element == 'X') {
+                    table.put(element, table.get(element) + 1);
+                    table.put('O', 0);
+
+                    if (table.get(element) == 4) {
                         return true;
                     }
-                } else {
-                    currentStreak = 0;
+                }
+                else if(element == 'O'){
+                    table.put(element, table.get(element) + 1);
+                    table.put('X', 0);
+
+                    if (table.get(element) == 4) {
+                        return true;
+                    }
+                }
+                else {
+                    table.put('X', 0);
+                    table.put('O', 0);
                 }
             }
         }
+
         return false;
     }
 
