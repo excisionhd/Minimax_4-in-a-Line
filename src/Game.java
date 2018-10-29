@@ -26,8 +26,9 @@ public class Game {
         placeMove('d',8,'-', b);
         placeMove('e',8,'O', b);
         printBoard(b);
-        System.out.println(checkHorizontal(b));
-        System.out.println(checkVertical(b));
+
+        System.out.println(checkWin(b));
+
     }
     
     public static char[][] generateEmptyBoard(){
@@ -62,10 +63,10 @@ public class Game {
 
     }
 
-/*    public boolean checkWin(char badge) {
-        return checkHorizontalStreaks(board, badge)
-                || checkVerticalStreaks(board, badge);
-    }*/
+    public static boolean checkWin(char[][] board) {
+        return checkHorizontal(board)
+                || checkVertical(board);
+    }
 
     private static void placeMove(char row, int col, char player, char[][] board){
         try {
