@@ -1,10 +1,14 @@
 import java.util.Hashtable;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Game {
 
     char[][] board;
-    final char PLAYER1 = 'X';
-    final char PLAYER2 = 'O';
+    final static char PLAYER1 = 'X';
+    final static char PLAYER2 = 'O';
+
 
     public Game(char[][] board){
         this.board = board;
@@ -12,6 +16,49 @@ public class Game {
 
     public static void main(String[] args) {
         char[][] b = generateEmptyBoard();
+        boolean done = false;
+
+        int currentPlayer = 1;
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("CS4200: 4-in-a-Line");
+        System.out.println("Player 1 Move:");
+
+        while (!done){
+
+            String choice = sc.next();
+
+            while(!processChoice(choice, b)){
+                if (currentPlayer == 1){
+                    System.out.println("Player 1 Move:");
+                }
+                else{
+                    System.out.println("Player 2 Move:");
+                }
+                choice = sc.next();
+            }
+
+            System.out.println(choice.charAt(0) + " " + choice.charAt(1));
+
+            if (currentPlayer == 1){
+                placeMove(choice.charAt(0), Integer.parseInt(Character.toString(choice.charAt(1))), PLAYER1, b);
+            }
+            else{
+                placeMove(choice.charAt(0), Integer.parseInt(Character.toString(choice.charAt(1))), PLAYER2, b);
+            }
+
+            currentPlayer *= -1;
+            printBoard(b);
+
+            if (currentPlayer == 1){
+                System.out.println("Player 1 Move:");
+            }
+            else{
+                System.out.println("Player 2 Move:");
+            }
+
+        }
         printBoard(b);
         placeMove('a',1,'X', b);
         placeMove('a',2,'X', b);
@@ -30,7 +77,31 @@ public class Game {
         System.out.println(checkWin(b));
 
     }
-    
+
+    private static boolean processChoice(String choice, char[][] board) {
+
+
+        String pattern = "^[a-eA-e][1-8]$";
+        String line = choice;
+
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(line);
+
+        if (m.find()){
+            int row = choice.charAt(0) - 97;
+            int col = Integer.parseInt(Character.toString(choice.charAt(1))) - 1;
+            System.out.println(col);
+            if (board[row][col] == 'X' || board[row][col] == 'O'){
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static char[][] generateEmptyBoard(){
         char[][] board = new char[8][8];
 
