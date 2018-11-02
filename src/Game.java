@@ -81,7 +81,7 @@ public class Game {
     private static boolean processChoice(String choice, char[][] board) {
 
 
-        String pattern = "^[a-eA-e][1-8]$";
+        String pattern = "^[a-h][1-8]$";
         String line = choice;
 
         Pattern r = Pattern.compile(pattern);
