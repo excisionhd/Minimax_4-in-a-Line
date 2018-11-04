@@ -1,3 +1,7 @@
+//CS4200: Artificial Intelligence 4-In-A-Line Minimax Algorithm
+//With Alpha-Beta Pruning
+//By: Amir Sotoodeh
+
 import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.regex.Matcher;
