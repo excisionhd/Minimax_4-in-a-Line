@@ -1,6 +1,11 @@
 //CS4200: Artificial Intelligence 4-In-A-Line Minimax Algorithm
 //With Alpha-Beta Pruning
 //By: Amir Sotoodeh
+//Project #3, Received Fourth/Fifth Place in competition
+//Future Improvements: Improve evaluation function,
+//AI Loses when has first turn.
+//Implement Iterative Deepening Search
+
 
 import java.util.*;
 import java.util.regex.Matcher;
